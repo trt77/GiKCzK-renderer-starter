@@ -9,11 +9,12 @@ CGlab
 └── README.md
 └── LAB02.md
 └── src
-    └── main
-        └── java
-            └── CGlab
-                └── App.java
-                └── Renderer.java
+|   └── main
+|       └── java
+|           └── CGlab
+|               └── App.java
+|               └── Renderer.java
+└── (...)
 ```
 
 Projekt ma też dołączone pliki Gradle do ułatwienia procesu kompilacji (można to wykonywać w łatwy sposób z konsoli, zakładając że Gradle jest zainstalowany w systemie).
@@ -72,7 +73,7 @@ import javax.imageio.ImageIO;
 
 public class Renderer {
 
-    public enum LineAlgo { NAIVE, DDA, BRESENHAM, BRESENHAM_INT; }
+    public enum LineAlgo { NAIVE, BRESENHAM, BRESENHAM_INT; }
 
     private BufferedImage render;
     public final int h = 200;
@@ -93,16 +94,11 @@ public class Renderer {
 
     public void drawLine(int x0, int y0, int x1, int y1, LineAlgo lineAlgo) {
         if(lineAlgo == LineAlgo.NAIVE) drawLineNaive(x0, y0, x1, y1);
-        if(lineAlgo == LineAlgo.DDA) drawLineDDA(x0, y0, x1, y1);
         if(lineAlgo == LineAlgo.BRESENHAM) drawLineBresenham(x0, y0, x1, y1);
         if(lineAlgo == LineAlgo.BRESENHAM_INT) drawLineBresenhamInt(x0, y0, x1, y1);
     }
 
     public void drawLineNaive(int x0, int y0, int x1, int y1) {
-        // TODO: zaimplementuj
-    }
-
-    public void drawLineDDA(int x0, int y0, int x1, int y1) {
         // TODO: zaimplementuj
     }
 
@@ -171,8 +167,6 @@ renderer.png 640 480 LINE_NAIVE
 
 #### będzie renderować grafikę do pliku renderer.png o rozmiarach 640x480, przy rysowaniu linii wykorzystując naiwny zmiennoprzecinkowy algorytm rysowania linii.
 
-#### Zadanie 4: Zaimplementuj algorytm digital differential analyzer (DDA) według slajdów z wykładu. Implementacje wykonaj w metodzie drawLineDDA.
-
 ---
 
 Rozważmy teraz algorytm rysowania linii wg. Bresenhama - pozwala on uniknąć kosztownych operacji mnożenia i zaokrąglania. Jego postać przedstawiona na wykładzie, przeniesiona do Javy mogłaby wyglądać następująco:
@@ -201,16 +195,16 @@ Rozważmy teraz algorytm rysowania linii wg. Bresenhama - pozwala on uniknąć k
 
 Kod ten nie działa dla wszystkich odcinków, przykładowo nie rysuje linii gdy x1 < x0. Możemy przyjąć, że będziemy musieli rysować następujące przypadki linii (zakładamy, że na rysunku środkowy punkt to x0):
 
-![Alt text](./Line_drawing_symmetry.svg)
+![Alt text](./img/Line_drawing_symmetry.svg)
 
 <sub><sup>źródło: Wikimedia Commons / Phrood / CC BY-SA</sup></sub>
 
 Kod powinien działać poprawnie dla przypadku w 8. oktancie (zaznaczonym na żółto) oraz w jeszcze jednym.
 
-#### Zadanie 5: Dodaj powyższy kod do swojego Renderera. W funkcji ```main``` przygotuj kilka wywołań funkcji dla różnych parametrów i sprawdź wynikowe obrazy. Dla których oktantów kod ten działa poprawnie? Uzupełnij komentarz ```// Oktanty: ``` o numery tych, dla których leżące w nich linie rysują się poprawnie. Numery oddziel przecinkiem.
+#### Zadanie 4: Dodaj powyższy kod do swojego Renderera. W funkcji ```main``` przygotuj kilka wywołań funkcji dla różnych parametrów i sprawdź wynikowe obrazy. Dla których oktantów kod ten działa poprawnie? Uzupełnij komentarz ```// Oktanty: ``` o numery tych, dla których leżące w nich linie rysują się poprawnie. Numery oddziel przecinkiem.
 
 ---
 
  Algorytm rysowania w aktualnej postaci w pętli nie potrzebuje mnożenia, dzielenia czy zaokrąglania, lecz wciąż działa na liczbach zmiennoprzecinkowych: ```float derr```, ```float err```.
 
- #### Zadanie 6: Zmodyfikuj algorytm tak, aby działał na liczbach całkowitych (patrz slajdy z wykładu 2.). Kod umieść w metodzie: ```drawLineBresenhamInt```. Uwzględnij wszystkie przypadki rysowania odcinka (każdy z oktantów). Przetestuj swoje rozwiązanie.
+ #### Zadanie 5: Zmodyfikuj algorytm tak, aby działał na liczbach całkowitych (patrz slajdy z wykładu 2.). Kod umieść w metodzie: ```drawLineBresenhamInt```. Uwzględnij wszystkie przypadki rysowania odcinka (każdy z oktantów). Przetestuj swoje rozwiązanie.

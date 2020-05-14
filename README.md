@@ -5,4 +5,5 @@
 
 - [x] Laboratorium 01 - zrealizowane na zajęciach 
 - [ ] [Laboratorium 02](LAB02.md): Algorytmy rasteryzacji linii
+- [ ] [Laboratorium 03](LAB03.md): Wypełnianie trójkątów
 
