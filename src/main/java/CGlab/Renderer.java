@@ -58,8 +58,8 @@ public class Renderer {
     }
 
     public void clear() {
-        for (int x = 0; x < w; x++) {
-            for (int y = 0; y < h; y++) {
+        for (int x = 0; x < render.getWidth(); x++) {
+            for (int y = 0; y < render.getHeight(); y++) {
                 int black = 0 | (0 << 8) | (0 << 16) | (255 << 24);
                 render.setRGB(x, y, black);
             }
