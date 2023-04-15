@@ -17,7 +17,8 @@ plugins {
 repositories {
     // Use jcenter for resolving dependencies.
     // You can declare any Maven/Ivy/file repository here.
-    jcenter()
+    // Changed from jcentral() to mavenCentral() due to deprecation of jcentral() in Gradle 9.0 ~trt77)
+    mavenCentral()
 }
 
 dependencies {
@@ -32,3 +33,4 @@ application {
     // Define the main class for the application.
     mainClassName = 'CGlab.App'
 }
+

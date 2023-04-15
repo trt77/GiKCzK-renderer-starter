@@ -1,26 +1,30 @@
 package CGlab;
 
+// ścieżka
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import java.lang.Math;
 
 public class Renderer {
 
     public enum LineAlgo { NAIVE, DDA, BRESENHAM, BRESENHAM_INT; }
 
     private BufferedImage render;
-    public final int defaultHeight = 200;
-    public final int defaultWidth = 200;
+    public int height;
+    public int width;
 
     private String filename;
     private LineAlgo lineAlgo = LineAlgo.NAIVE;
 
-    public Renderer(String filename) {
-        render = new BufferedImage(defaultWidth, defaultHeight, BufferedImage.TYPE_INT_ARGB);
-        this.filename = filename;
+    public Renderer(String imageName, int width, int height) {
+        this.width = width;
+        this.height = height;
+        render = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        this.filename = System.getProperty("user.home") + "/" + imageName;
     }
 
     public void drawPoint(int x, int y) {
@@ -35,8 +39,27 @@ public class Renderer {
         if(lineAlgo == LineAlgo.BRESENHAM_INT) drawLineBresenhamInt(x0, y0, x1, y1);
     }
 
-    public void drawLineNaive(int x0, int y0, int x1, int y1) {
-        // TODO: zaimplementuj
+    public void drawLineNaive(int x1, int y1, int x2, int y2) {
+
+        /*
+
+        Współczynnik kierunkowy można obliczyć
+        korzystając ze współrzędnych dwóch różnych punktów (x1, y1) i (x2, y2)
+        należących do prostej, według następującego wzoru:
+
+        m = (y2 - y1) / (x2 - x1)
+
+         */
+
+        double m = (double) (y2 - y1) / (x2 - x1);
+
+        do {
+            drawPoint(x1, y1);
+            x1++;
+            y1 = (int) Math.round(y1 + m);
+            drawPoint(x1, y1);
+        } while (x1 != x2 && y1 != y2);
+
     }
 
     public void drawLineDDA(int x0, int y0, int x1, int y1) {
@@ -44,7 +67,23 @@ public class Renderer {
     }
 
     public void drawLineBresenham(int x0, int y0, int x1, int y1) {
-        // TODO: zaimplementuj
+        int white = 255 | (255 << 8) | (255 << 16) | (255 << 24);
+
+        int dx = x1-x0;
+        int dy = y1-y0;
+        float derr = Math.abs(dy/(float)(dx));
+        float err = 0;
+
+        int y = y0;
+
+        for (int x=x0; x<=x1; x++) {
+            render.setRGB(x, y, white);
+            err += derr;
+            if (err > 0.5) {
+                y += (y1 > y0 ? 1 : -1);
+                err -= 1.;
+            }
+        } // Oktanty:
     }
 
     public void drawLineBresenhamInt(int x0, int y0, int x1, int y1) {
