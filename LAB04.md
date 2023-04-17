@@ -75,7 +75,9 @@ Klasa ```RandomColorRenderer```:
 package CGlab;
 
 
-import java.util.concurrent.ThreadLocalRandom; public class RandomColorRenderer extends Renderer {
+import java.util.concurrent.ThreadLocalRandom; 
+
+public class RandomColorRenderer extends Renderer {
 
     public RandomColorRenderer(String filename) { super(filename);
     }
