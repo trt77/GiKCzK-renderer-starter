@@ -5,4 +5,5 @@
 
 - [ ] [Laboratorium 02](LAB02.md): Algorytmy rasteryzacji linii
 - [ ] [Laboratorium 03](LAB03.md): Wypełnianie trójkątów
+- [ ] [Laboratorium 04](LAB04.md): Flat shading. Test z-bufora
 
