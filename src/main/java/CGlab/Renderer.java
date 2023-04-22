@@ -11,20 +11,21 @@ import java.lang.Math;
 
 public class Renderer {
 
-    public enum LineAlgo { NAIVE, DDA, BRESENHAM, BRESENHAM_INT; }
+    public enum LineAlgo { NAIVE, DDA, BRESENHAM, BRESENHAM_INT }
 
     private BufferedImage render;
     public int height;
     public int width;
 
     private String filename;
-    private LineAlgo lineAlgo = LineAlgo.NAIVE;
+    private String lineAlgo;
 
-    public Renderer(String imageName, int width, int height) {
+    public Renderer(String imageName, int width, int height, String lineAlgo) {
         this.width = width;
         this.height = height;
         render = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         this.filename = System.getProperty("user.home") + "/" + imageName;
+        this.lineAlgo = lineAlgo;
     }
 
     public void drawPoint(int x, int y) {
@@ -83,7 +84,7 @@ public class Renderer {
                 y += (y1 > y0 ? 1 : -1);
                 err -= 1.;
             }
-        } // Oktanty:
+        } // Oktanty: 7, 8
     }
 
     public void drawLineBresenhamInt(int x0, int y0, int x1, int y1) {
