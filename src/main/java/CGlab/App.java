@@ -27,14 +27,18 @@ public class App {
         String lineAlgo = args[3];
         Renderer mainRenderer = new Renderer(filepath, width, height, lineAlgo);
         mainRenderer.clear();
+        /*
+            rysuje punkt...
+         */
         // mainRenderer.drawPoint(width/2, height/2);
 
         /*
-            rysuje linię używając NAIVE...
+            rysuje linię (test NAIVE))...
          */
         //mainRenderer.drawLine(30, 30, 60, 60, Renderer.LineAlgo.valueOf(lineAlgo));
+
         /*
-            rysuje linię używając BRESENHAM... (dla każdego z oktantów)
+            rysuje linię (test BRESENHAM, dla każdego z oktantów)...
          */
         mainRenderer.drawLine(200, 200, 300,280 , Renderer.LineAlgo.valueOf(lineAlgo));
         mainRenderer.drawLine(200, 200, 100,280 , Renderer.LineAlgo.valueOf(lineAlgo));
@@ -44,8 +48,21 @@ public class App {
         mainRenderer.drawLine(200, 200, 300,130 , Renderer.LineAlgo.valueOf(lineAlgo));
         mainRenderer.drawLine(200, 200, 300,180 , Renderer.LineAlgo.valueOf(lineAlgo));
         mainRenderer.drawLine(200, 200, 300,230 , Renderer.LineAlgo.valueOf(lineAlgo));
+        // kod działa poprawnie dla przykładów w oktancie 7 i 8
 
-        // kod działa poprawnie dla przykładów w oktancie 8 i 7
+        /*
+            rysuje linię (test BRESENHAM_INT, dla każdego z oktantów)...
+         */
+        mainRenderer.drawLine(200, 200, 300,280 , Renderer.LineAlgo.valueOf(lineAlgo));
+        mainRenderer.drawLine(200, 200, 100,280 , Renderer.LineAlgo.valueOf(lineAlgo));
+        mainRenderer.drawLine(200, 200, 100,230 , Renderer.LineAlgo.valueOf(lineAlgo));
+        mainRenderer.drawLine(200, 200, 100, 180, Renderer.LineAlgo.valueOf(lineAlgo));
+        mainRenderer.drawLine(200, 200, 100,130 , Renderer.LineAlgo.valueOf(lineAlgo));
+        mainRenderer.drawLine(200, 200, 300,130 , Renderer.LineAlgo.valueOf(lineAlgo));
+        mainRenderer.drawLine(200, 200, 300,180 , Renderer.LineAlgo.valueOf(lineAlgo));
+        mainRenderer.drawLine(200, 200, 300,230 , Renderer.LineAlgo.valueOf(lineAlgo));
+        //kod działa poprawnie dla przykładów w oktancie 7, 8, 3, 4
+
 
         try {
             mainRenderer.save();
