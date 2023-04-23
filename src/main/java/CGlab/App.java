@@ -90,7 +90,6 @@ public class App {
         /*
             rysowanie trójkąta z parametrem koloryzującym
          */
-
         int x1 = 340;
         int y1 = 40;    //punkt A
 
@@ -104,10 +103,7 @@ public class App {
         var vecB = new Vec2f(x2, y2);
         var vecC = new Vec2f(x3, y3);
 
-        mainRenderer.drawTriangle(vecA, vecB, vecC, new Vec3f(200,50 , 100));
-
-
-
+        mainRenderer.drawTriangle(vecA, vecB, vecC, new Vec3f(100, 200, 150));
 
         try {
             mainRenderer.save();

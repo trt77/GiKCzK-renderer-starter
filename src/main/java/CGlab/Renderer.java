@@ -11,15 +11,24 @@ import java.lang.Math;
 
 public class Renderer {
 
+
+    protected int getWidth() {
+        return width;
+    }
+
+    protected int getHeight() {
+        return height;
+    }
+
     public enum LineAlgo { NAIVE, DDA, BRESENHAM, BRESENHAM_INT }
 
     private BufferedImage render;
+
     public int height;
     public int width;
 
     private String filename;
     private String lineAlgo;
-
     public Renderer(String imageName, int width, int height, String lineAlgo) {
         this.width = width;
         this.height = height;
@@ -29,6 +38,13 @@ public class Renderer {
     }
 
     public Renderer(String imageName, int width, int height) {
+        this.width = width;
+        this.height = height;
+        render = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        this.filename = System.getProperty("user.home") + "/" + imageName;
+    }
+
+    public Renderer(String imageName, int width, int height, Vec3f vec3f) {
         this.width = width;
         this.height = height;
         render = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
