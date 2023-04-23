@@ -28,6 +28,13 @@ public class Renderer {
         this.lineAlgo = lineAlgo;
     }
 
+    public Renderer(String imageName, int width, int height) {
+        this.width = width;
+        this.height = height;
+        render = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        this.filename = System.getProperty("user.home") + "/" + imageName;
+    }
+
     public void drawPoint(int x, int y) {
         int white = 255 | (255 << 8) | (255 << 16) | (255 << 24);
         render.setRGB(x, y, white);
@@ -143,4 +150,41 @@ public class Renderer {
         g.dispose();
         return flippedImage;
     }
+
+    public Vec3f barycentric(Vec2f A, Vec2f B, Vec2f C, Vec2f P) {
+        Vec3f v1 = new Vec3f(B.x - A.x, C.x - A.x, P.x - A.x);
+
+        Vec3f v2 = new Vec3f(B.y - A.y, C.y - A.y, P.y - A.y);
+
+        Vec3f cross = vectorsMultiplied(v1, v2);
+
+        Vec2f uv = new Vec2f(cross.x/cross.z, cross.y/cross.z);
+
+        Vec3f barycentric = new Vec3f(uv.x, uv.y, 1 - uv.x - uv.y);
+
+        return barycentric;
+    }
+
+    public Vec3f vectorsMultiplied(Vec3f v1, Vec3f v2) {
+        float x = v1.y*v2.z - v1.z*v2.y;
+        float y = v1.z*v2.x - v1.x*v2.z;
+        float z = v1.x*v2.y - v1.y*v2.x;
+
+        return new Vec3f(x, y, z);
+    }
+
+    public void drawTriangle(Vec2f A, Vec2f B, Vec2f C) {
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                Vec2f P = new Vec2f(x, y);
+                Vec3f barycentric = barycentric(A, B, C, P);
+
+                if (barycentric.x >= 0 && barycentric.y >= 0 && barycentric.z >= 0) {
+                    drawPoint(x, y);
+                }
+            }
+        }
+    }
+
+
 }

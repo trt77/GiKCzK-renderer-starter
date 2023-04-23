@@ -1,6 +1,7 @@
 package CGlab;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -12,10 +13,10 @@ public class App {
         W celu uruchomienia aplikacji należy zainstalować gradle
         $gradle -v >>Gradle 8.1
         uruchamiać program przez cmd, w obecnym commicie:
-        $gradle run --args="NAZWA_PLIKU SZEROKOŚĆ WYSOKOŚĆ RODZAJ_ALGORYTMU_RYSOWANIA_LINII"
-        dotychczas zaimplementowany algorytm: NAIVE
+        $gradle run --args="NAZWA_PLIKU SZEROKOŚĆ WYSOKOŚĆ"
 
-        plik domyślnie zapisywany jest w folderze użytkownika
+        w obecnym commicie: rysowanie trójkąta dzięki współrzędnym barycentrycznym
+        plik domyślnie zapisywany jest w folderze USER_HOME użytkownika
         w przypadku git add . w Windows
         $git config --global core.autocrlf true
      */
@@ -24,9 +25,19 @@ public class App {
         String filepath = args[0];
         int width = Integer.parseInt(args[1]);
         int height = Integer.parseInt(args[2]);
-        String lineAlgo = args[3];
-        Renderer mainRenderer = new Renderer(filepath, width, height, lineAlgo);
+        Renderer mainRenderer;
+        if(args.length == 4) {
+            String lineAlgo = args[3];
+            mainRenderer = new Renderer(filepath, width, height, lineAlgo);
+        }else {
+            mainRenderer = new Renderer(filepath, width, height);
+        }
         mainRenderer.clear();
+
+
+        //---------TESTOWE WYWOLANIA METOD-------
+
+
         /*
             rysuje punkt...
          */
@@ -40,28 +51,47 @@ public class App {
         /*
             rysuje linię (test BRESENHAM, dla każdego z oktantów)...
          */
-        mainRenderer.drawLine(200, 200, 300,280 , Renderer.LineAlgo.valueOf(lineAlgo));
+        /*mainRenderer.drawLine(200, 200, 300,280 , Renderer.LineAlgo.valueOf(lineAlgo));
         mainRenderer.drawLine(200, 200, 100,280 , Renderer.LineAlgo.valueOf(lineAlgo));
         mainRenderer.drawLine(200, 200, 100,230 , Renderer.LineAlgo.valueOf(lineAlgo));
         mainRenderer.drawLine(200, 200, 100, 180, Renderer.LineAlgo.valueOf(lineAlgo));
         mainRenderer.drawLine(200, 200, 100,130 , Renderer.LineAlgo.valueOf(lineAlgo));
         mainRenderer.drawLine(200, 200, 300,130 , Renderer.LineAlgo.valueOf(lineAlgo));
         mainRenderer.drawLine(200, 200, 300,180 , Renderer.LineAlgo.valueOf(lineAlgo));
-        mainRenderer.drawLine(200, 200, 300,230 , Renderer.LineAlgo.valueOf(lineAlgo));
+        mainRenderer.drawLine(200, 200, 300,230 , Renderer.LineAlgo.valueOf(lineAlgo));*/
         // kod działa poprawnie dla przykładów w oktancie 7 i 8
 
         /*
             rysuje linię (test BRESENHAM_INT, dla każdego z oktantów)...
          */
-        mainRenderer.drawLine(200, 200, 300,280 , Renderer.LineAlgo.valueOf(lineAlgo));
+        /*mainRenderer.drawLine(200, 200, 300,280 , Renderer.LineAlgo.valueOf(lineAlgo));
         mainRenderer.drawLine(200, 200, 100,280 , Renderer.LineAlgo.valueOf(lineAlgo));
         mainRenderer.drawLine(200, 200, 100,230 , Renderer.LineAlgo.valueOf(lineAlgo));
         mainRenderer.drawLine(200, 200, 100, 180, Renderer.LineAlgo.valueOf(lineAlgo));
         mainRenderer.drawLine(200, 200, 100,130 , Renderer.LineAlgo.valueOf(lineAlgo));
         mainRenderer.drawLine(200, 200, 300,130 , Renderer.LineAlgo.valueOf(lineAlgo));
         mainRenderer.drawLine(200, 200, 300,180 , Renderer.LineAlgo.valueOf(lineAlgo));
-        mainRenderer.drawLine(200, 200, 300,230 , Renderer.LineAlgo.valueOf(lineAlgo));
+        mainRenderer.drawLine(200, 200, 300,230 , Renderer.LineAlgo.valueOf(lineAlgo));*/
         //kod działa poprawnie dla przykładów w oktancie 7, 8, 3, 4
+
+        /*
+            rysuje trójkąt
+         */
+        int x1 = 340;
+        int y1 = 40;    //punkt A
+
+        int x2 = 370;
+        int y2 = 40;    //punkt B
+
+        int x3 = 355;
+        int y3 = 60;   //punkt C
+
+        var vecA = new Vec2f(x1, y1);
+        var vecB = new Vec2f(x2, y2);
+        var vecC = new Vec2f(x3, y3);
+
+        mainRenderer.drawTriangle(vecA, vecB, vecC);
+
 
 
         try {
