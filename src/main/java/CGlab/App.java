@@ -25,13 +25,7 @@ public class App {
         String filepath = args[0];
         int width = Integer.parseInt(args[1]);
         int height = Integer.parseInt(args[2]);
-        Renderer mainRenderer;
-        if(args.length == 4) {
-            String lineAlgo = args[3];
-            mainRenderer = new Renderer(filepath, width, height, lineAlgo);
-        }else {
-            mainRenderer = new Renderer(filepath, width, height);
-        }
+        Renderer mainRenderer = new Renderer(filepath, width, height);
         mainRenderer.clear();
 
 
@@ -75,8 +69,28 @@ public class App {
         //kod działa poprawnie dla przykładów w oktancie 7, 8, 3, 4
 
         /*
-            rysuje trójkąt
+            rysuje trójkąt (z wykorzystaniem punktów A, B, C,
+            bez parametru koloryzującego — niezaimplementowany w tym commicie
          */
+        /*int x1 = 340;
+        int y1 = 40;    //punkt A
+
+        int x2 = 370;
+        int y2 = 40;    //punkt B
+
+        int x3 = 355;
+        int y3 = 60;   //punkt C
+
+        var vecA = new Vec2f(x1, y1);
+        var vecB = new Vec2f(x2, y2);
+        var vecC = new Vec2f(x3, y3);
+
+        mainRenderer.drawTriangle(vecA, vecB, vecC);*/
+
+        /*
+            rysowanie trójkąta z parametrem koloryzującym
+         */
+
         int x1 = 340;
         int y1 = 40;    //punkt A
 
@@ -90,7 +104,8 @@ public class App {
         var vecB = new Vec2f(x2, y2);
         var vecC = new Vec2f(x3, y3);
 
-        mainRenderer.drawTriangle(vecA, vecB, vecC);
+        mainRenderer.drawTriangle(vecA, vecB, vecC, new Vec3f(200,50 , 100));
+
 
 
 

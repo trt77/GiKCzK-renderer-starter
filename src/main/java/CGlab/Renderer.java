@@ -173,14 +173,15 @@ public class Renderer {
         return new Vec3f(x, y, z);
     }
 
-    public void drawTriangle(Vec2f A, Vec2f B, Vec2f C) {
+    public void drawTriangle(Vec2f A, Vec2f B, Vec2f C, Vec3f colour) {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 Vec2f P = new Vec2f(x, y);
                 Vec3f barycentric = barycentric(A, B, C, P);
 
                 if (barycentric.x >= 0 && barycentric.y >= 0 && barycentric.z >= 0) {
-                    drawPoint(x, y);
+                    int colr = 255 | ((int)colour.x%255 << 8) | ((int)colour.y%255 << 16) | ((int)colour.z%255 << 24);
+                    render.setRGB(x, y, colr);
                 }
             }
         }
