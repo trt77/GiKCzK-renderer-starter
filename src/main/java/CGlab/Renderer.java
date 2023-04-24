@@ -22,7 +22,7 @@ public class Renderer {
 
     public enum LineAlgo { NAIVE, DDA, BRESENHAM, BRESENHAM_INT }
 
-    private BufferedImage render;
+    public BufferedImage render;
 
     public int height;
     public int width;
@@ -167,7 +167,35 @@ public class Renderer {
         return flippedImage;
     }
 
-    public Vec3f barycentric(Vec2f A, Vec2f B, Vec2f C, Vec2f P) {
+    /*public Vec3f barycentric(Vec2f A, Vec2f B, Vec2f C, Vec2f P) {
+        Vec3f v1 = new Vec3f(B.x - A.x, C.x - A.x, P.x - A.x);
+
+        Vec3f v2 = new Vec3f(B.y - A.y, C.y - A.y, P.y - A.y);
+
+        Vec3f cross = vectorsMultiplied(v1, v2);
+
+        Vec2f uv = new Vec2f(cross.x/cross.z, cross.y/cross.z);
+
+        Vec3f barycentric = new Vec3f(uv.x, uv.y, 1 - uv.x - uv.y);
+
+        return barycentric;
+    }*/
+
+    /*public Vec3f barycentric(Vec3i A, Vec3i B, Vec3i C, Vec2f P) {
+        Vec3f v1 = new Vec3f(B.x - A.x, C.x - A.x, P.x - A.x);
+
+        Vec3f v2 = new Vec3f(B.y - A.y, C.y - A.y, P.y - A.y);
+
+        Vec3f cross = vectorsMultiplied(v1, v2);
+
+        Vec2f uv = new Vec2f(cross.x / cross.z, cross.y / cross.z);
+
+        Vec3f barycentric = new Vec3f(uv.x, uv.y, 1 - uv.x - uv.y);
+
+        return barycentric;
+    }*/
+
+    public Vec3f barycentric(Vec2i A, Vec2i B, Vec2i C, Vec2f P) {
         Vec3f v1 = new Vec3f(B.x - A.x, C.x - A.x, P.x - A.x);
 
         Vec3f v2 = new Vec3f(B.y - A.y, C.y - A.y, P.y - A.y);
@@ -189,7 +217,10 @@ public class Renderer {
         return new Vec3f(x, y, z);
     }
 
-    public void drawTriangle(Vec2f A, Vec2f B, Vec2f C, Vec3f colour) {
+    /*
+        rysowanie trójkątów na potrzeby lab 1-3 (bez zaimplementowanego bounding-box)
+     */
+    /*public void drawTriangle(Vec2f A, Vec2f B, Vec2f C, Vec3f colour) {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 Vec2f P = new Vec2f(x, y);
@@ -201,7 +232,57 @@ public class Renderer {
                 }
             }
         }
-    }
+    }*/
 
+
+    /*
+        rysowanie trójkątów na potrzeby Lab04 (z zaimplementowanym bounding-box), bez testu z-buffora.
+     */
+    /*public void drawTriangle(Vec2i A, Vec2i B, Vec2i C, int colour) {
+
+        float minX = Integer.MAX_VALUE, maxX = Integer.MIN_VALUE, minY = Integer.MAX_VALUE, maxY = Integer.MIN_VALUE;
+
+        if (A.x > maxX) maxX = A.x;
+        if (A.x < minX) minX = A.x;
+        if (A.y > maxY) maxY = A.y;
+        if (A.y < minY) minY = A.y;
+
+        if (B.x > maxX) maxX = B.x;
+        if (B.x < minX) minX = B.x;
+        if (B.y > maxY) maxY = B.y;
+        if (B.y < minY) minY = B.y;
+
+        if (C.x > maxX) maxX = C.x;
+        if (C.x < minX) minX = C.x;
+        if (C.y > maxY) maxY = C.y;
+        if (C.y < minY) minY = C.y;
+
+        for (int x = (int)minX; x < maxX; x++) {
+            for (int y = (int)minY; y < maxY; y++) {
+                Vec2f P = new Vec2f(x, y);
+                Vec3f barycentric = barycentric(A, B, C, P);
+
+                if (barycentric.x >= 0 && barycentric.y >= 0 && barycentric.z >= 0) {
+                    render.setRGB(x, y, colour);
+                }
+            }
+        }
+    }*/
+
+    /*
+        rysowanie trójkątów na potrzeby Lab04 (bez bounding-box), bez testu z-buffora.
+     */
+    public void drawTriangle(Vec2i A, Vec2i B, Vec2i C, int colour) {
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                Vec2f P = new Vec2f(x, y);
+                Vec3f barycentric = barycentric(A, B, C, P);
+
+                if (barycentric.x >= 0 && barycentric.y >= 0 && barycentric.z >= 0) {
+                    render.setRGB(x, y, colour);
+                }
+            }
+        }
+    }
 
 }

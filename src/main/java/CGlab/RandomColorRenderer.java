@@ -8,7 +8,6 @@ public class RandomColorRenderer extends Renderer {
     }
 
     public void render(Model model) {
-        Renderer render = new Renderer();
         for (Vec3i face : model.getFaceList()) {
 
             Vec2i[] screen_coords = new Vec2i[3];

@@ -20,16 +20,19 @@ public class App {
         w przypadku git add . w Windows
         $git config --global core.autocrlf true
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-        String filepath = args[0];
+        /*
+            zastąpione dla lab 4 od zadania 1 poniżej
+         */
+        /*String filepath = args[0];
         int width = Integer.parseInt(args[1]);
         int height = Integer.parseInt(args[2]);
         Renderer mainRenderer = new Renderer(filepath, width, height);
-        mainRenderer.clear();
+        mainRenderer.clear();*/
 
 
-        //---------TESTOWE WYWOLANIA METOD-------
+        //testowe wywołania metod
 
 
         /*
@@ -90,7 +93,7 @@ public class App {
         /*
             rysowanie trójkąta z parametrem koloryzującym
          */
-        int x1 = 340;
+        /*int x1 = 340;
         int y1 = 40;    //punkt A
 
         int x2 = 370;
@@ -103,7 +106,17 @@ public class App {
         var vecB = new Vec2f(x2, y2);
         var vecC = new Vec2f(x3, y3);
 
-        mainRenderer.drawTriangle(vecA, vecB, vecC, new Vec3f(100, 200, 150));
+        mainRenderer.drawTriangle(vecA, vecB, vecC, new Vec3f(100, 200, 150));*/
+
+        /*
+            Lab04 - Zad 1 dodano klasy, testowanie działania
+         */
+        Model deerModel = new Model();
+        deerModel.readOBJ("C:/Users/student/deer-mod.obj");
+
+        RandomColorRenderer mainRenderer = new RandomColorRenderer(args[0], Integer.parseInt(args[1]), Integer.parseInt(args[2]));
+        mainRenderer.clear();
+        mainRenderer.render(deerModel);
 
         try {
             mainRenderer.save();
